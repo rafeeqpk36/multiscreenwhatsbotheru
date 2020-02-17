@@ -1,0 +1,42 @@
+import React from "react";
+import { createAppContainer } from "react-navigation";
+import { createBottomTabNavigator } from "react-navigation-tabs";
+import { createStackNavigator } from "react-navigation-stack";
+import TabBarIcon from "./TabBarIcon";
+import PrivateTodos from "./PrivateTodosScreen";
+import PublicTodos from "./PublicTodosScreen";
+
+const PrivateTodosStack = createStackNavigator({
+  Private: PrivateTodos
+});
+
+PrivateTodosStack.navigationOptions = {
+  tabBarLabel: "Private Todos",
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon focused={focused} name="lock-outline" />
+  ),
+  tabBarOptions: {
+    activeTintColor: "#392F76",
+    inactiveTitColor: "gray"
+  }
+};
+
+const PublicTodosStack = createStackNavigator({
+  Public: PublicTodos
+});
+
+PublicTodosStack.navigationOptions = {
+  tabBarLabel: "Public Todos",
+  tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="public" />,
+  tabBarOptions: {
+    activeTintColor: "#392F76",
+    inactiveTitColor: "gray"
+  }
+};
+
+const TodosTabNavigator = createBottomTabNavigator({
+  PrivateTodosStack,
+  PublicTodosStack
+});
+
+export default createAppContainer(TodosTabNavigator);
